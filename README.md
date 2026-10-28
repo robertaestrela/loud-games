@@ -15,6 +15,8 @@ Protótipo mobile do **LOUD** (redesign *Apple Gamer Style*), fiel ao Figma e ao
 
 **Fluxo:** o app abre no cadastro (boas-vindas → celular → código → senha → apelido), **sem personagem**. A Loja desbloqueia os pacotes de skins (LOUD (Coringa e Carolina Voltman), Magia do bar, Reis do baralho); ao embarcar, a aba **Jogos** vira a Home com o vídeo do personagem e as escolhas (avatar, mesa, baralho) passam para todos os jogos.
 
+**Diamantes:** moeda da Loja, só cosmético (skins, baralhos, molduras, efeitos, troca de nome e de foto) e nunca entra em partida. É o único pagamento dentro do app: o saldo de diamantes fica no topo da Loja e o + abre a página Diamantes (50 +8 · 195 +15 · 960 +40 · 4.500 +100, por R$ 6,90 · 29,90 · 129,90 · 599,90). A confirmação é a tela da App Store / Google Play (no protótipo, uma referência). Pacote de skins = 70 diamantes; sem saldo, o Comprar abre a página Diamantes.
+
 **Batalhas:** lobby com busca e filtro por jogo, criação em 5 passos (jogo → modo e formato → rodadas 1/3/5/10 → buy-in → aberta ou fechada com senha), sala de espera que enche com bots e **série de partidas**: vence quem ganhar mais rodadas e leva o prêmio.
 
 Também navegáveis com dados de exemplo: Chat (bônus e mesas no chat), Notificações, Perfil, Histórico, Ranking (geral e por jogo) e Ajustes.
@@ -49,7 +51,7 @@ css/desk.css      desktop: header largo, menu, chat ao vivo e a coluna 9:16
 js/core.js        dados e estado
 js/ui.js          componentes em HTML
 js/screens.js     navegação, cadastro, lobby, Home, fila e resultado
-js/loja.js        Loja, pacotes, escolha de personagem e recompensa
+js/loja.js        Loja, pacotes, diamantes, escolha de personagem e recompensa
 js/social.js      Chat, Notificações, Perfil, Ajustes, Ranking e o redirecionamento para Fichas
 fichas/           página de Fichas (fora do app): index.html, fichas.css, fichas.js
 js/battles.js     Batalhas e série de partidas
