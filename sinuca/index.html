@@ -20,7 +20,7 @@
   --text:#eeeef0; --subtle:#5f606a; --muted:rgba(255,255,255,.08); --hl:rgba(255,255,255,.16); --hl2:rgba(255,255,255,.32);
   --blue:#11ff00; --blue-top:#2af220; --blue-bg:#1a8015; --ok:#2cc160; --ok-text:#52de7e;
   --red:#e5484d; --red-top:#ef4452; --red-bg:#c72c3d; --gold:#ffc841;
-  --g-sinuca:#2fa35a; --felt:#17611a; --felt-l:#2a9a2a; --felt-d:#06280a;
+  --g-sinuca:#2fa35a; --felt:#292a2e; --felt-l:#46484f; --felt-d:#111113;
   --c-engenheiro:#4fb3ff; --c-comandante:#f5c542; --c-piloto:#ff5a36; --c-navegador:#e86bff; --c-explorador:#4dffb8; --c-bar:#ff9f43; --c-reis:#34d399; --c-gamer:#3d8bff;
   --f-display:"Sora", "Inter", system-ui, sans-serif; --f-ui:"Inter", system-ui, -apple-system, sans-serif;
 }
@@ -849,7 +849,7 @@ function recolorTable(old) {
   for (let i = 0; i < p.length; i += 4) {
     const r = p[i], gg = p[i + 1], b = p[i + 2], mx = Math.max(r, gg, b), mn = Math.min(r, gg, b);
     let coat = 0, rough = 170;
-    if (r > 45 && r > gg * 1.7 && r > b * 1.7) { const l = Math.min(1.3, r / 140); p[i] = 20 * l; p[i + 1] = 90 * l; p[i + 2] = 22 * l; rough = 245; }
+    if (r > 45 && r > gg * 1.7 && r > b * 1.7) { const l = Math.min(1.3, r / 140); p[i] = 36 * l; p[i + 1] = 37 * l; p[i + 2] = 41 * l; rough = 245; }
     else if (mn > 190) { p[i] = 17; p[i + 1] = 25; p[i + 2] = 46; coat = 255; rough = 105; }
     else if (r > 140 && gg > 60 && b < gg && r > b * 1.6) { p[i] = 205; p[i + 1] = 218; p[i + 2] = 240; coat = 200; rough = 90; } // orange sights → pearl
     else if (mx - mn < 20 && mx > 60) { const l = mx / 128; p[i] = 13 * l; p[i + 1] = 17 * l; p[i + 2] = 27 * l; coat = 180; rough = 120; }
@@ -858,7 +858,7 @@ function recolorTable(old) {
   g.putImageData(d, 0, 0); g2.putImageData(e, 0, 0);
   const tex = cv => { const t = new THREE.CanvasTexture(cv); t.flipY = false; t.wrapS = old.map.wrapS; t.wrapT = old.map.wrapT; t.anisotropy = 8; return t; };
   const map = tex(c), cr = tex(c2); map.colorSpace = THREE.SRGBColorSpace;
-  return mat({map, normalMap: old.normalMap, normalScale: new THREE.Vector2(.8, .8), roughness: 1, roughnessMap: cr, clearcoat: .55, clearcoatMap: cr, clearcoatRoughness: .2, envMapIntensity: .8, sheen: .25, sheenRoughness: .6, sheenColor: new THREE.Color(0x7dff70)});
+  return mat({map, normalMap: old.normalMap, normalScale: new THREE.Vector2(.8, .8), roughness: 1, roughnessMap: cr, clearcoat: .55, clearcoatMap: cr, clearcoatRoughness: .2, envMapIntensity: .8, sheen: .25, sheenRoughness: .6, sheenColor: new THREE.Color(0x9a9aa6)});
 }
 // CC0 Poly Haven props: bar stools and leather sofas in the dark
 function buildBar() {
@@ -929,7 +929,7 @@ function noiseFill(g, w, h, amp) { const id = g.getImageData(0, 0, w, h), d = id
 function feltTexture() {
   const cw = 1024, ch = 2048, px = x => (x + IX) / (2 * IX) * cw, py = z => (z + IZ) / (2 * IZ) * ch;
   const tex = canvasTex(cw, ch, g => {
-    g.fillStyle = '#17611a'; g.fillRect(0, 0, cw, ch);
+    g.fillStyle = '#292a2e'; g.fillRect(0, 0, cw, ch);
     for (let i = 0; i < 110; i++) { // soft mottling of real cloth
       const x = Math.random() * cw, y = Math.random() * ch, r = rnd(60, 240), gr = g.createRadialGradient(x, y, 0, x, y, r), l = Math.random() < .5;
       gr.addColorStop(0, l ? 'rgba(255,255,255,.03)' : 'rgba(0,0,0,.05)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(x - r, y - r, 2 * r, 2 * r);
@@ -984,7 +984,7 @@ function buildTable() {
   const felt = mat({...cloth, map: feltTexture(), normalMap: tx('poplin_nor.jpg', [9, 18]), roughnessMap: tx('poplin_rough.jpg', [9, 18])});
   const cushionMat = mat({...cloth, color: 0x18396f, normalMap: tx('poplin_nor.jpg', [7, 7]), roughnessMap: tx('poplin_rough.jpg', [7, 7])});
   // dark navy leather on rails, apron and legs
-  const leather = (color, r) => { const b = leatherGrain().clone(); repeatTex(b, r, r); return mat({color, roughness: .6, bumpMap: b, bumpScale: 1.4, sheen: .4, sheenRoughness: .55, sheenColor: new THREE.Color(0x7dff70), clearcoat: .22, clearcoatRoughness: .45, envMapIntensity: .55}); };
+  const leather = (color, r) => { const b = leatherGrain().clone(); repeatTex(b, r, r); return mat({color, roughness: .6, bumpMap: b, bumpScale: 1.4, sheen: .4, sheenRoughness: .55, sheenColor: new THREE.Color(0x9a9aa6), clearcoat: .22, clearcoatRoughness: .45, envMapIntensity: .55}); };
   const railMat = leather(0x16213d, 6);
   const castMat = mat({color: 0x23262b, metalness: 1, roughness: .26, envMapIntensity: 1.2});
   const black = new THREE.MeshBasicMaterial({color: 0x000000});
