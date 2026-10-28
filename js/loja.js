@@ -78,15 +78,16 @@ Object.assign(ACT, {
 });
 
 /* ---------- sheet "Pacote desbloqueado!" (M03 · M10 · M16 · M22) ---------- */
+// imagens das sheets sempre a partir do centro (left = 50% + deslocamento do centro), em qualquer largura de coluna · sem brilho de fundo
 function heroAvatars(id) {
   const p = PACKS[id];
-  if (id === 'estelar') return `${'<i class="glw"></i>'}<span class="av m" style="left:12px;top:92px"><img src="${photo('engenheiro', 'ela')}" alt=""></span><span class="av m" style="left:283px;top:92px"><img src="${photo('explorador', 'ele')}" alt=""></span>
-    <span class="av l" style="left:48px;top:64px"><img src="${photo('comandante', 'ele')}" alt=""></span><span class="av l" style="left:215px;top:64px"><img src="${photo('piloto', 'ela')}" alt=""></span>
-    <span class="av xl" style="left:112px;top:36px"><img src="${photo('navegador', 'ela')}" alt=""></span>`;
+  if (id === 'estelar') return `<span class="av m" style="left:calc(50% - 136px);top:92px"><img src="${photo('engenheiro', 'ela')}" alt=""></span><span class="av m" style="left:calc(50% + 136px);top:92px"><img src="${photo('explorador', 'ele')}" alt=""></span>
+    <span class="av l" style="left:calc(50% - 84px);top:64px"><img src="${photo('comandante', 'ele')}" alt=""></span><span class="av l" style="left:calc(50% + 84px);top:64px"><img src="${photo('piloto', 'ela')}" alt=""></span>
+    <span class="av xl" style="left:50%;top:36px"><img src="${photo('navegador', 'ela')}" alt=""></span>`;
   const r = p.roles[0];
-  if (p.solo) { const pos = p.roles.length === 1 ? [['xl', 112, 36]] : p.roles.length === 2 ? [['xl', 56, 44], ['xl', 168, 44]] : [['l', 48, 64], ['xl', 112, 36], ['l', 215, 64]], ord = p.roles.length === 3 ? [1, 0, 2] : p.roles.map((_, i) => i);
-    return '<i class="glw"></i>' + ord.map(i => `<span class="av ${pos[i][0]}" style="left:${pos[i][1]}px;top:${pos[i][2]}px"><img src="${photo(p.roles[i], 'ele')}" alt=""></span>`).join(''); }
-  return `<i class="glw"></i><span class="av xl" style="left:56px;top:44px"><img src="${photo(r, 'ele')}" alt=""></span><span class="av xl" style="left:168px;top:44px"><img src="${photo(r, 'ela')}" alt=""></span>`;
+  if (p.solo) { const pos = p.roles.length === 1 ? [['xl', 0, 36]] : p.roles.length === 2 ? [['xl', -56, 44], ['xl', 56, 44]] : [['l', -84, 64], ['xl', 0, 36], ['l', 84, 64]], ord = p.roles.length === 3 ? [1, 0, 2] : p.roles.map((_, i) => i);
+    return ord.map(i => `<span class="av ${pos[i][0]}" style="left:calc(50% + ${pos[i][1]}px);top:${pos[i][2]}px"><img src="${photo(p.roles[i], 'ele')}" alt=""></span>`).join(''); }
+  return `<span class="av xl" style="left:calc(50% - 56px);top:44px"><img src="${photo(r, 'ele')}" alt=""></span><span class="av xl" style="left:calc(50% + 56px);top:44px"><img src="${photo(r, 'ela')}" alt=""></span>`;
 }
 function unlockedSheet(id, paid) {
   const p = PACKS[id];
@@ -149,7 +150,7 @@ function showRewardSheet() {
   const r = ST.reward; if (!r) return;
   const p = PACKS[r.pack];
   closeSheet();
-  setTimeout(() => openSheet(`<div class="hero"><i class="glw"></i><span class="av xl" style="left:112px;top:36px"><img src="${photo(r.c, r.g)}" alt=""></span></div>
+  setTimeout(() => openSheet(`<div class="hero"><span class="av xl" style="left:50%;top:36px"><img src="${photo(r.c, r.g)}" alt=""></span></div>
     ${tag('Recompensa', 'gold')}<h2>Você ganhou uma skin!</h2>
     <p>${crewName(r.c, r.g)} · pacote ${p.name}. Ative agora ou guarde para depois.</p>
     <div class="row">${btn('Ver depois', 'sec', 'm m44', 'data-a="rewardLater"')}${btn('Ativar agora', 'pri', 'm m44', 'data-a="rewardNow"')}</div>`, {cls: 'unlock'}), 200);
@@ -180,7 +181,7 @@ function diaConfirm(i) {
 }
 // D04 · "Você recebeu": diamantes + bônus caem na hora
 function diaGot(k) {
-  openSheet(`<div class="hero"><i class="glw dia"></i><img class="dart" src="${diaArt(k.art)}" alt=""></div>${tag('Compra confirmada', 'success')}
+  openSheet(`<div class="hero"><img class="dart" src="${diaArt(k.art)}" alt=""></div>${tag('Compra confirmada', 'success')}
     <h2>+${diaN(k.n + k.b)} diamantes</h2><p>${diaN(k.n)} diamantes + ${k.b} de bônus já estão na sua conta. Use na Loja em skins, baralhos, molduras e efeitos.</p>
     <div class="row">${btn('Fechar', 'sec', 'm m44', 'data-a="closeSheet"')}${btn('Ir para a Loja', 'pri', 'm m44', 'data-a="diaLoja"')}</div>`, {cls: 'unlock'});
 }
